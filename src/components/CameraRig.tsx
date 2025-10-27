@@ -1,25 +1,44 @@
 "use client";
 
 import { useFrame, useThree } from "@react-three/fiber";
-import { useScroll } from "@react-three/drei";
-import { useEffect } from "react";
+import { useRef } from "react";
+import * as THREE from "three";
 
-/**
- * CameraRig
- * – Bewegt die Kamera abhängig vom Scroll-Offset
- * – Orbit um das Zentrum (0,0,0)
- */
-export default function CameraRig() {
-  const scroll = useScroll();
+interface CameraRigProps {
+  mode: string;
+}
+
+export default function CameraRig({ mode }: CameraRigProps) {
   const { camera } = useThree();
+  const targetPosition = useRef(new THREE.Vector3());
+  const lookAtTarget = new THREE.Vector3(0, 0, 0);
 
   useFrame(() => {
-    const t = scroll.offset * Math.PI * 2;
-    const radius = 5;
-    const x = Math.sin(t) * radius;
-    const z = Math.cos(t) * radius;
-    camera.position.set(x, 2, z);
-    camera.lookAt(0, 0, 0);
+    // Definiere Zielposition abhängig vom Modus
+    switch (mode) {
+      case "overview":
+        targetPosition.current.set(4, 5, 4); // leicht oben rechts
+        break;
+      case "side":
+        targetPosition.current.set(8, 2, 0); // Seitenprofil
+        break;
+      case "top":
+        targetPosition.current.set(0, 10, 0.1); // Vogelperspektive
+        break;
+      case "front":
+        targetPosition.current.set(0, 2, 8); // Frontalansicht
+        break;
+      case "orbit":
+      default:
+        // In Orbit-Modus bewegt sich Kamera frei (kein Update hier)
+        break;
+    }
+
+    if (mode !== "orbit") {
+      // Sanfte Interpolation der Kamera
+      camera.position.lerp(targetPosition.current, 0.05);
+      camera.lookAt(lookAtTarget);
+    }
   });
 
   return null;

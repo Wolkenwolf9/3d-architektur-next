@@ -9,6 +9,8 @@ import {
 } from "@react-three/drei";
 import Model from "./Model";
 import CameraRig from "./CameraRig";
+import { useState } from "react";
+import CameraToggle from "./CameraToggle";
 
 // function CameraRig() {
 //   const scroll = useScroll();
@@ -27,15 +29,21 @@ import CameraRig from "./CameraRig";
 // }
 
 export default function Scene() {
+  const [cameraMode, setCameraMode] = useState("orbit");
   return (
-    <Canvas style={{ background: "#0a0a0a" }}>
-      <ScrollControls pages={3}>
-        <CameraRig />
-        {/* <OrbitControls /> */}
-        <Environment preset='city' />
-        <ambientLight intensity={0.5} />
-        <Model />
-      </ScrollControls>
-    </Canvas>
+    <div className="relative w-full h-screen">
+      <Canvas style={{ background: "#0a0a0a" }}>
+        <ScrollControls pages={3}>
+          <CameraRig mode={cameraMode} />
+          {cameraMode === "orbit" && <OrbitControls enableDamping />}
+          {/* <CameraRig /> */}
+          {/* <OrbitControls /> */}
+          <Environment preset="city" />
+          <ambientLight intensity={0.5} />
+          <Model />
+        </ScrollControls>
+      </Canvas>
+      <CameraToggle onChange={setCameraMode} />
+    </div>
   );
 }
