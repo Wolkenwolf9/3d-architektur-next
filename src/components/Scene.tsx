@@ -1,12 +1,7 @@
 "use client";
 
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  useScroll,
-  ScrollControls,
-  Environment,
-  OrbitControls,
-} from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { Environment, OrbitControls } from "@react-three/drei";
 import Model from "./Model";
 import CameraRig from "./CameraRig";
 import { useState } from "react";
@@ -29,19 +24,19 @@ import CameraToggle from "./CameraToggle";
 // }
 
 export default function Scene() {
-  const [cameraMode, setCameraMode] = useState("orbit");
+  const [cameraMode, setCameraMode] = useState("front");
   return (
     <div className="relative w-full h-screen">
       <Canvas style={{ background: "#0a0a0a" }}>
-        <ScrollControls pages={3}>
-          <CameraRig mode={cameraMode} />
-          {cameraMode === "orbit" && <OrbitControls enableDamping />}
-          {/* <CameraRig /> */}
-          {/* <OrbitControls /> */}
-          <Environment preset="city" />
-          <ambientLight intensity={0.5} />
-          <Model />
-        </ScrollControls>
+        {/* <ScrollControls pages={3}> */}
+        <CameraRig mode={cameraMode} />
+        {cameraMode === "orbit" && <OrbitControls enableDamping />}
+        {/* <CameraRig /> */}
+        {/* <OrbitControls /> */}
+        <Environment preset="city" background={false} />
+        <ambientLight intensity={0.5} />
+        <Model />
+        {/* </ScrollControls> */}
       </Canvas>
       <CameraToggle onChange={setCameraMode} />
     </div>

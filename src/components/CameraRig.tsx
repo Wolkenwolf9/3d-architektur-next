@@ -17,16 +17,16 @@ export default function CameraRig({ mode }: CameraRigProps) {
     // Definiere Zielposition abhängig vom Modus
     switch (mode) {
       case "overview":
-        targetPosition.current.set(4, 5, 4); // leicht oben rechts
+        targetPosition.current.set(-5, 2, -1.5); // leicht oben rechts
         break;
       case "side":
-        targetPosition.current.set(8, 2, 0); // Seitenprofil
+        targetPosition.current.set(5, 2, 0); // Seitenprofil
         break;
       case "top":
-        targetPosition.current.set(0, 10, 0.1); // Vogelperspektive
+        targetPosition.current.set(0, 6, 0.1); // Vogelperspektive
         break;
       case "front":
-        targetPosition.current.set(0, 2, 8); // Frontalansicht
+        targetPosition.current.set(0, 2, 5); // Frontalansicht
         break;
       case "orbit":
       default:

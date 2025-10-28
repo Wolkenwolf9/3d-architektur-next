@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Camera, Eye, Box, SwitchCamera } from "lucide-react";
+import { Camera, Eye, Box, SwitchCamera, Bird } from "lucide-react";
 
 interface CameraToggleProps {
   onChange: (mode: string) => void;
@@ -10,14 +10,14 @@ interface CameraToggleProps {
 
 const modes = [
   { id: "orbit", label: "Frei", icon: <Box size={18} /> },
-  { id: "overview", label: "Aufsicht", icon: <Camera size={18} /> },
-  { id: "side", label: "Seite", icon: <Eye size={18} /> },
-  { id: "top", label: "Vogel", icon: <Camera size={18} /> },
   { id: "front", label: "Front", icon: <SwitchCamera size={18} /> },
+  { id: "side", label: "Seite", icon: <Eye size={18} /> },
+  { id: "top", label: "Vogel", icon: <Bird size={18} /> },
+  { id: "overview", label: "Aufsicht", icon: <Camera size={18} /> },
 ];
 
 export default function CameraToggle({ onChange }: CameraToggleProps) {
-  const [active, setActive] = useState("orbit");
+  const [active, setActive] = useState("front");
 
   const handleToggle = (id: string) => {
     setActive(id);
