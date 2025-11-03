@@ -25,6 +25,7 @@ import CameraToggle from "./CameraToggle";
 
 export default function Scene() {
   const [cameraMode, setCameraMode] = useState("front");
+  const [spread, setSpread] = useState(false);
   return (
     <div className="relative w-full h-screen">
       <Canvas style={{ background: "#0a0a0a" }}>
@@ -35,10 +36,17 @@ export default function Scene() {
         {/* <OrbitControls /> */}
         <Environment preset="city" background={false} />
         <ambientLight intensity={0.5} />
-        <Model />
+        <Model spread={spread} />
         {/* </ScrollControls> */}
       </Canvas>
       <CameraToggle onChange={setCameraMode} />
+
+      <button
+        onClick={() => setSpread(!spread)}
+        className="absolute top-4 right-4 bg-white/10 text-white backdrop-blur-md rounded-full px-4 py-2 hover:bg-white/20 transition"
+      >
+        {spread ? "Zusammenfügen" : "Verteilen"}
+      </button>
     </div>
   );
 }
