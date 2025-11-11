@@ -6,6 +6,7 @@ import Model from "./Model";
 import CameraRig from "./CameraRig";
 import { useState } from "react";
 import CameraToggle from "./CameraToggle";
+import PfeileModel from "./PfeileModel";
 
 // function CameraRig() {
 //   const scroll = useScroll();
@@ -37,6 +38,7 @@ export default function Scene() {
         <Environment preset='city' background={false} />
         <ambientLight intensity={0.5} />
         <Model spread={spread} />
+        <PfeileModel />
         {/* </ScrollControls> */}
       </Canvas>
       <CameraToggle onChange={setCameraMode} />
