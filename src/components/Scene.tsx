@@ -27,14 +27,14 @@ export default function Scene() {
   const [cameraMode, setCameraMode] = useState("front");
   const [spread, setSpread] = useState(false);
   return (
-    <div className="relative w-full h-screen">
+    <div className='relative w-full h-screen'>
       <Canvas style={{ background: "#0a0a0a" }}>
         {/* <ScrollControls pages={3}> */}
         <CameraRig mode={cameraMode} />
         {cameraMode === "orbit" && <OrbitControls enableDamping />}
         {/* <CameraRig /> */}
         {/* <OrbitControls /> */}
-        <Environment preset="city" background={false} />
+        <Environment preset='city' background={false} />
         <ambientLight intensity={0.5} />
         <Model spread={spread} />
         {/* </ScrollControls> */}
@@ -43,7 +43,7 @@ export default function Scene() {
 
       <button
         onClick={() => setSpread(!spread)}
-        className="absolute top-4 right-4 bg-white/10 text-white backdrop-blur-md rounded-full px-4 py-2 hover:bg-white/20 transition"
+        className='absolute top-4 right-4 bg-white/10 text-white backdrop-blur-md border border-zinc-700 rounded-full px-4 py-2 hover:bg-white/20 transition'
       >
         {spread ? "Zusammenfügen" : "Verteilen"}
       </button>
