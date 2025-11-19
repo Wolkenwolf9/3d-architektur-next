@@ -7,6 +7,7 @@ import CameraRig from './CameraRig';
 import { useEffect, useState } from 'react';
 import CameraToggle from './CameraToggle';
 import PfeileModel from './PfeileModel';
+import VirtualStudioModel from './VirtualStudioModel';
 
 // function CameraRig() {
 //   const scroll = useScroll();
@@ -43,6 +44,7 @@ export default function Scene() {
         <Environment preset="city" background={false} />
         <ambientLight intensity={0.5} />
         <Model spread={spread} />
+        <VirtualStudioModel />
         {showArrows && <PfeileModel />}
         {/* </ScrollControls> */}
       </Canvas>
