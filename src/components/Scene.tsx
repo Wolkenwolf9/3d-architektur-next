@@ -4,10 +4,11 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls, useGLTF } from '@react-three/drei';
 import Model from './Model';
 import CameraRig from './CameraRig';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import CameraToggle from './CameraToggle';
 import PfeileModel from './PfeileModel';
 import VirtualStudioModel from './VirtualStudioModel';
+import Preloader from './Preloader';
 
 // function CameraRig() {
 //   const scroll = useScroll();
@@ -34,32 +35,35 @@ export default function Scene() {
     useGLTF.preload('/Eingangspfeile1.glb');
   }, []);
   return (
-    <div className="relative w-full h-screen">
+    <div className='relative w-full h-screen'>
       <Canvas style={{ background: '#0a0a0a' }}>
-        {/* <ScrollControls pages={3}> */}
-        <CameraRig mode={cameraMode} />
-        {cameraMode === 'orbit' && <OrbitControls enableDamping />}
-        {/* <CameraRig /> */}
-        {/* <OrbitControls /> */}
-        <Environment preset="city" background={false} />
-        <ambientLight intensity={0.5} />
-        <Model spread={spread} />
-        <VirtualStudioModel />
-        {showArrows && <PfeileModel />}
-        {/* </ScrollControls> */}
+        <Suspense fallback={<Preloader />}>
+          {/* <ScrollControls pages={3}> */}
+          <CameraRig mode={cameraMode} />
+          {cameraMode === 'orbit' && <OrbitControls enableDamping />}
+          {/* <CameraRig /> */}
+          {/* <OrbitControls /> */}
+          <Environment preset='city' background={false} />
+          {/* <directionalLight></directionalLight> */}
+          <ambientLight intensity={0.5} />
+          <Model spread={spread} />
+          <VirtualStudioModel />
+          {showArrows && <PfeileModel />}
+          {/* </ScrollControls> */}
+        </Suspense>
       </Canvas>
       <CameraToggle onChange={setCameraMode} />
       {/* //Button zum auffächern des Modells */}
       <button
         onClick={() => setSpread(!spread)}
-        className="absolute top-4 right-4 bg-white/10 text-white backdrop-blur-md border border-zinc-700 rounded-full px-4 py-2 hover:bg-white/20 transition"
+        className='absolute top-4 right-4 bg-white/10 text-white backdrop-blur-md border border-zinc-700 rounded-full px-4 py-2 hover:bg-white/20 transition'
       >
         {spread ? 'Zusammenfügen' : 'Verteilen'}
       </button>
       {/* //Button um Eingänge ein/aus zu togglen */}
       <button
         onClick={() => setShowArrows(!showArrows)}
-        className="absolute top-4 left-4 bg-white/10 text-white backdrop-blur-md border border-zinc-700 rounded-full px-4 py-2 hover:bg-white/20 transition"
+        className='absolute top-4 left-4 bg-white/10 text-white backdrop-blur-md border border-zinc-700 rounded-full px-4 py-2 hover:bg-white/20 transition'
       >
         {showArrows ? 'Eingänge aus' : 'Eingänge ein'}
       </button>
