@@ -1,14 +1,15 @@
-'use client';
+"use client";
 
-import { Canvas } from '@react-three/fiber';
-import { Environment, OrbitControls, useGLTF } from '@react-three/drei';
-import Model from './Model';
-import CameraRig from './CameraRig';
-import { Suspense, useEffect, useState } from 'react';
-import CameraToggle from './CameraToggle';
-import PfeileModel from './PfeileModel';
-import VirtualStudioModel from './VirtualStudioModel';
-import Preloader from './Preloader';
+import { Canvas } from "@react-three/fiber";
+import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
+import Model from "./Model";
+import CameraRig from "./CameraRig";
+import { Suspense, useEffect, useState } from "react";
+import CameraToggle from "./CameraToggle";
+import PfeileModel from "./PfeileModel";
+import VirtualStudioModel from "./VirtualStudioModel";
+import Preloader from "./Preloader";
+import AufzügeModel from "./AufzügeModel";
 
 // function CameraRig() {
 //   const scroll = useScroll();
@@ -27,20 +28,20 @@ import Preloader from './Preloader';
 // }
 
 export default function Scene() {
-  const [cameraMode, setCameraMode] = useState('front');
+  const [cameraMode, setCameraMode] = useState("front");
   const [spread, setSpread] = useState(false);
   const [showArrows, setShowArrows] = useState(false);
   useEffect(() => {
-    useGLTF.preload('/Haus-Bauwesen-standard.glb');
-    useGLTF.preload('/Eingangspfeile1.glb');
+    useGLTF.preload("/Haus-Bauwesen-standard.glb");
+    useGLTF.preload("/Eingangspfeile1.glb");
   }, []);
   return (
     <div className='relative w-full h-screen'>
-      <Canvas style={{ background: '#0a0a0a' }}>
+      <Canvas style={{ background: "#0a0a0a" }}>
         <Suspense fallback={<Preloader />}>
           {/* <ScrollControls pages={3}> */}
           <CameraRig mode={cameraMode} />
-          {cameraMode === 'orbit' && <OrbitControls enableDamping />}
+          {cameraMode === "orbit" && <OrbitControls enableDamping />}
           {/* <CameraRig /> */}
           {/* <OrbitControls /> */}
           <Environment preset='city' background={false} />
@@ -48,6 +49,7 @@ export default function Scene() {
           <ambientLight intensity={0.5} />
           <Model spread={spread} />
           <VirtualStudioModel />
+          <AufzügeModel />
           {showArrows && <PfeileModel />}
           {/* </ScrollControls> */}
         </Suspense>
@@ -58,14 +60,14 @@ export default function Scene() {
         onClick={() => setSpread(!spread)}
         className='absolute top-4 right-4 bg-white/10 text-white backdrop-blur-md border border-zinc-700 rounded-full px-4 py-2 hover:bg-white/20 transition'
       >
-        {spread ? 'Zusammenfügen' : 'Verteilen'}
+        {spread ? "Zusammenfügen" : "Verteilen"}
       </button>
       {/* //Button um Eingänge ein/aus zu togglen */}
       <button
         onClick={() => setShowArrows(!showArrows)}
         className='absolute top-4 left-4 bg-white/10 text-white backdrop-blur-md border border-zinc-700 rounded-full px-4 py-2 hover:bg-white/20 transition'
       >
-        {showArrows ? 'Eingänge aus' : 'Eingänge ein'}
+        {showArrows ? "Eingänge aus" : "Eingänge ein"}
       </button>
     </div>
   );
