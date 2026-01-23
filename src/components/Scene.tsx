@@ -10,6 +10,7 @@ import PfeileModel from "./PfeileModel";
 import VirtualStudioModel from "./VirtualStudioModel";
 import Preloader from "./Preloader";
 import AufzügeModel from "./AufzügeModel";
+import Toggle from "./Toggle";
 
 // function CameraRig() {
 //   const scroll = useScroll();
@@ -31,6 +32,8 @@ export default function Scene() {
   const [cameraMode, setCameraMode] = useState("front");
   const [spread, setSpread] = useState(false);
   const [showArrows, setShowArrows] = useState(false);
+  const [showVirtualStudio, setShowVirtualStudio] = useState(false);
+  const [showAufzüge, setShowAufzüge] = useState(false);
   useEffect(() => {
     useGLTF.preload("/Haus-Bauwesen-standard.glb");
     useGLTF.preload("/Eingangspfeile1.glb");
@@ -48,9 +51,9 @@ export default function Scene() {
           {/* <directionalLight></directionalLight> */}
           <ambientLight intensity={0.5} />
           <Model spread={spread} />
-          <VirtualStudioModel />
-          <AufzügeModel />
           {showArrows && <PfeileModel />}
+          {showVirtualStudio && <VirtualStudioModel />}
+          {showAufzüge && <AufzügeModel />}
           {/* </ScrollControls> */}
         </Suspense>
       </Canvas>
@@ -63,12 +66,25 @@ export default function Scene() {
         {spread ? "Zusammenfügen" : "Verteilen"}
       </button>
       {/* //Button um Eingänge ein/aus zu togglen */}
-      <button
-        onClick={() => setShowArrows(!showArrows)}
-        className='absolute top-4 left-4 bg-white/10 text-white backdrop-blur-md border border-zinc-700 rounded-full px-4 py-2 hover:bg-white/20 transition'
-      >
-        {showArrows ? "Eingänge aus" : "Eingänge ein"}
-      </button>
+      <div className='absolute top-4 left-4 flex flex-col gap-3 bg-white/10 p-4 rounded-xl backdrop-blur-md border border-zinc-700'>
+        <Toggle
+          label='Eingänge anzeigen'
+          checked={showArrows}
+          onChange={setShowArrows}
+        />
+
+        <Toggle
+          label='Virtuelles Studio'
+          checked={showVirtualStudio}
+          onChange={setShowVirtualStudio}
+        />
+
+        <Toggle
+          label='Aufzüge anzeigen'
+          checked={showAufzüge}
+          onChange={setShowAufzüge}
+        />
+      </div>
     </div>
   );
 }

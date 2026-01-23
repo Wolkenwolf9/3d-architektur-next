@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { Edges, useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
-import { useFrame } from '@react-three/fiber';
+import { useRef } from "react";
+import { Edges, useGLTF } from "@react-three/drei";
+import * as THREE from "three";
+import { useFrame } from "@react-three/fiber";
 
 export default function PfeileModel() {
-  const { scene } = useGLTF('/Eingangspfeile1.glb');
+  const { scene } = useGLTF("/Eingangspfeile1.glb");
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -18,8 +18,8 @@ export default function PfeileModel() {
   });
 
   return (
-    <primitive ref={groupRef} object={scene} scale={0.04}>
-      <Edges linewidth={4} color="black" />
-    </primitive>
+    <primitive ref={groupRef} object={scene} scale={0.04} />
+    //   <Edges linewidth={4} color="black" />
+    // </primitive>
   );
 }

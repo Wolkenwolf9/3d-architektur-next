@@ -31,11 +31,10 @@ function Aufzug({
     >
       <boxGeometry args={[1.84883, 21.7211, 2.2797]} />
       <meshStandardMaterial
-        color='orange'
+        color='#f5f5f5'
         transparent
         opacity={0.3}
         depthTest={false}
-        depthWrite={false}
       />
       {hovered && (
         <Html position={[0, 15, 0]}>

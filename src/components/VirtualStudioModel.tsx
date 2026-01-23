@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useRef, useState } from 'react';
-import * as THREE from 'three';
-import { useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
+import { useRef, useState } from "react";
+import * as THREE from "three";
+import { useFrame } from "@react-three/fiber";
+import { Html } from "@react-three/drei";
 
 export default function VirtualStudioModel() {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -31,7 +31,6 @@ export default function VirtualStudioModel() {
           transparent
           opacity={0.3}
           depthTest={false}
-          depthWrite={false}
         />
         {hovered && (
           <Html position={[0, 15, 0]}>
