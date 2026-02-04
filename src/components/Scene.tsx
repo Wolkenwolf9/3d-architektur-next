@@ -11,6 +11,7 @@ import VirtualStudioModel from "./VirtualStudioModel";
 import Preloader from "./Preloader";
 import AufzügeModel from "./AufzügeModel";
 import Toggle from "./Toggle";
+import MensaModel from "./MensaModel";
 
 // function CameraRig() {
 //   const scroll = useScroll();
@@ -34,6 +35,7 @@ export default function Scene() {
   const [showArrows, setShowArrows] = useState(false);
   const [showVirtualStudio, setShowVirtualStudio] = useState(false);
   const [showAufzüge, setShowAufzüge] = useState(false);
+  const [showMensa, setShowMensa] = useState(false);
   useEffect(() => {
     useGLTF.preload("/Haus-Bauwesen-standard.glb");
     useGLTF.preload("/Eingangspfeile1.glb");
@@ -54,6 +56,7 @@ export default function Scene() {
           {showArrows && <PfeileModel />}
           {showVirtualStudio && <VirtualStudioModel />}
           {showAufzüge && <AufzügeModel />}
+          {showMensa && <MensaModel />}
           {/* </ScrollControls> */}
         </Suspense>
       </Canvas>
@@ -83,6 +86,12 @@ export default function Scene() {
           label='Aufzüge anzeigen'
           checked={showAufzüge}
           onChange={setShowAufzüge}
+        />
+
+        <Toggle
+          label='Mensa anzeigen'
+          checked={showMensa}
+          onChange={setShowMensa}
         />
       </div>
     </div>
